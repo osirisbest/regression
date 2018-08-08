@@ -1,0 +1,16 @@
+{
+  "name": "regres",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gauss": "^0.2.12",
+    "regression": "^2.0.1",
+    "technicalindicators": "^1.1.11"
+  }
+}
