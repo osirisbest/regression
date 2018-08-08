@@ -167,4 +167,13 @@ const yIntercept2 = result2.equation[1];
 console.log(yIntercept2)
 
 console.log(SMA.calculate({period:200,values:arr}))
+sma=SMA.calculate({period:200,values:arr})[0]
+let arrSma=[]
+for (let i of arr){
+    arrSma.push([i,i/sma])
+//console.log(i/sma)
+}
 
+for (let i of arrSma){
+    console.log(i.toString())
+}
