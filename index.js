@@ -1,14 +1,8 @@
 const regression = require('regression');
 const SMA = require('technicalindicators').SMA;
-const result = regression.linear([[1, 1], [2, 22], [5,5]]);
-console.log(result)
-const gradient = result.equation[0];
-console.log(gradient)
-const yIntercept = result.equation[1];
-console.log(yIntercept)
 
-let arr=[3342,3597,2845,2905,2438,2812,3184,3046,5513,9336,2507,2762,2741,3032,4043,2847,3968,3268,4494,3727,4341,4301,4000,3571,4047,3935,4664,4624,4366,
-    4597,4945,4264,3680,4105,4181,3982,3715,3390,3714,3629,3054,3170,2969,3185,3014,3230,3540,4194,5359,8925,14911,26786,6604,3560,3478,3887,3474,3665,3882,
+let arr = [3342, 3597, 2845, 2905, 2438, 2812, 3184, 3046, 5513, 9336, 2507, 2762, 2741, 3032, 4043, 2847, 3968, 3268, 4494, 3727, 4341, 4301, 4000, 3571, 4047, 3935, 4664, 4624, 4366,
+    4597, 4945, 4264, 3680, 4105, 4181, 3982, 3715, 3390, 3714, 3629, 3054, 3170, 2969, 3185, 3014, 3230, 3540, 4194, 5359, 8925, 14911, 26786, 6604, 3560, 3478, 3887, 3474, 3665, 3882,
     4166,
     4507,
     12909,
@@ -150,30 +144,46 @@ let arr=[3342,3597,2845,2905,2438,2812,3184,3046,5513,9336,2507,2762,2741,3032,4
     3337,
     3185,
     3240]
-let arrin=[]
-for(let i=0;i<200;i++){
-    arrin.push([i+201201,arr[i]])
-    //console.log(arr[i])
+let arrin = []
+let i=0,week=0,year=2012
+for (let el of arr) {
+    week++
+    i++
+    if (week>52){
+        week=1
+        year++
+    }
+    arrin.push([i, String(year)+String((String(week).length===1)?"0"+week:week), el])
 }
 
-console.log(arrin.toString())
+console.log('arr in spread:')
 
+console.log(...arrin)
 
-const result2 = regression.linear(arrin);
-console.log(result2)
-const gradient2 = result2.equation[0];
-console.log(gradient2)
-const yIntercept2 = result2.equation[1];
-console.log(yIntercept2)
+console.log('regression is:')
 
-console.log(SMA.calculate({period:200,values:arr}))
-sma=SMA.calculate({period:200,values:arr})[0]
-let arrSma=[]
-for (let i of arr){
-    arrSma.push([i,i/sma])
-//console.log(i/sma)
+console.log(SMA.calculate({ period: 200, values: arr }))
+sma = SMA.calculate({ period: 200, values: arr })[0]
+let arrSma = []
+for (let i of arr) {
+    arrSma.push([i, i / sma])
+    //console.log(i/sma)
 }
 
-for (let i of arrSma){
+for (let i of arrSma) {
     console.log(i.toString())
+}
+
+function regressionValue(arrin) {
+    const result = regression.linear(arrin);
+    //console.log(result2)
+    const gradient = result.equation[0];
+    //console.log(gradient2)
+    const yIntercept = result.equation[1];
+    //console.log(yIntercept2)
+    return{
+        result,
+        gradient,
+        yIntercept
+    }
 }
