@@ -62,11 +62,28 @@ function regressionValue(arrin,dev=true) {
 function yearFilter(value){
     //res=false
     //if (year===arr[0]) res=true
-    return 2012===value[0]
+    let year=2012
+    return year===value[0]
 }
 
 let arrFiltered=arrin.filter(yearFilter)
 console.log(...arrFiltered.map(x=>[x[1],x[3]])
 )
 //regressionValue(arrFiltered,true)
-regressionValue(arrFiltered.map(x=>[x[1],x[3]]))
+console.log(' for 2012 regression is:')
+let arrAn=arrFiltered.map(x=>[x[1],x[3]])
+console.log(...arrAn)
+regressionValue(arrAn)
+let sma1=SMA.calculate({ period: arrAn.length, values: arrAn.map(x=>x[1]) })[0]
+console.log({sma1})
+
+console.log(...arrFiltered)
+let arrSmaPush=arrFiltered.map(x=>([x[0],x[1],x[2],x[3],(x[3]/sma1)]))
+console.log(...arrSmaPush)
+
+
+
+
+
+let setYear=new Set(arrin.map(x=>x[0]))
+console.log(...setYear)
